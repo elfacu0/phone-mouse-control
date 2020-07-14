@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<title>Hello from Flask</title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<style>
+    body{
+        margin: 0px;
+        padding: 0px;
+    }
+    canvas{
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+    }
+</style>
+<script type=text/javascript>
+    let isDrawing = false;
+    let isMoving = false;
+    let isFirstTouch = true;
+    let cont = 0;
+        $(function() {
+          $('canvas').bind('touchstart', function(e) {
+            e.preventDefault();
+            $.getJSON('/reset_position');
+            if(isMoving && !isFirstTouch){
+                isDrawing = true;
+            }
+            isMoving = true;
+            isFirstTouch = false;
+            return false;
+          });
+        });
+
+        $(function() {
+          $('canvas').bind('touchend', function(e) {
+              e.preventDefault();
+              $.getJSON('/reset_position');
+              if(isFirstTouch){
+                  isDrawing = false;
+              }
+              if(isDrawing){
+                  isFirstTouch = true;
+              }else if(!isDrawing){
+                  isMoving = false;
+              }
+              return false;
+          });
+        });
+            $(function() {
+            $('canvas').bind('touchmove', function(e) {
+                e.preventDefault();
+                    if(cont>2){
+                        let touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                        let x = parseInt(touch.pageX), y = parseInt(touch.pageY);
+                        $.getJSON(`/move_mouse?x=${x}&y=${y}&isDrawing=${isDrawing}`);
+                        cont = 0;
+                    }
+                    cont++;
+                return false;
+            });
+            });
+</script>
+<canvas>
+
+</canvas>
