@@ -15,7 +15,6 @@
 <script type=text/javascript>
     let isDrawing = false;
     let activeTouchs = 0;
-    let cont = 0;
         $(function() {
           $('canvas').bind('touchstart', function(e) {
             activeTouchs++;
@@ -40,17 +39,13 @@
           });
         });
             $(function() {
-            $('canvas').bind('touchmove', function(e) {
-                e.preventDefault();
-                    if(cont>2){
-                        let touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
-                        let x = parseInt(touch.pageX), y = parseInt(touch.pageY);
-                        $.getJSON(`/move_mouse?x=${x}&y=${y}&isDrawing=${isDrawing}`);
-                        cont = 0;
-                    }
-                    cont++;
-                return false;
-            });
+                $('canvas').bind('touchmove', function(e) {
+                    e.preventDefault();
+                    let touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+                    let x = parseInt(touch.pageX), y = parseInt(touch.pageY);
+                    $.getJSON(`/move_mouse?x=${x}&y=${y}&isDrawing=${isDrawing}`);
+                    return false;
+                });
             });
 </script>
 <canvas></canvas>
