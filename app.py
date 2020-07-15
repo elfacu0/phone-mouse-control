@@ -36,7 +36,7 @@ def move_mouse():
     last_x = x
     last_y = y
 
-    return ("nothing")
+    return ("Mouse moved")
 
 @app.route('/reset_position')
 def reset_position():
@@ -44,7 +44,7 @@ def reset_position():
     global last_x
     last_x = 0
     last_y = 0
-    return ("nothing")
+    return ("Position reseted")
 
 
 @app.route("/")
