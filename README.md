@@ -25,6 +25,6 @@ Run
     python app.py
 ```
 
-Go to your ipv4 address + Port in your phone browser to start controlling your mouse
+Go to your ipv4 address in your phone browser to start controlling your mouse
 
-eg: 192.168.0.15:80
+eg: 192.168.0.15
